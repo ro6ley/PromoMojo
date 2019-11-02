@@ -12,11 +12,16 @@ PromoMojo handles your Promos for you, focus on the fun!
 - [x] The promo code radius should be configurable
 - [ ] Redeeming promocodes by providing the origin, destination and code 
 
+# NB
+
+- API currently has no auth implemented, meaning anyone can create, and manage promocodes
+
 # Starting
 
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
+  * Update database config on `config/dev.exs`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `cd assets && npm install`
   * Start Phoenix endpoint with `mix phx.server`
