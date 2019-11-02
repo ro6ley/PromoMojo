@@ -22,6 +22,20 @@ defmodule PromoMojo.PromoCodes do
   end
 
   @doc """
+  Returns the list of active promocodes.
+
+  ## Examples
+
+      iex> list_active_promocodes()
+      [%Promocode{}, ...]
+
+  """
+  def list_active_promocodes do
+    query = from(p in Promocode, where: p.is_active == ^true)
+    query |> Repo.all()
+  end#
+
+  @doc """
   Gets a single promocode.
 
   Raises `Ecto.NoResultsError` if the Promocode does not exist.
