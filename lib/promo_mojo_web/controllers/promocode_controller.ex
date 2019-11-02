@@ -41,4 +41,9 @@ defmodule PromoMojoWeb.PromocodeController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def active(conn, _params) do
+    promocodes = PromoCodes.list_active_promocodes()
+    render(conn, "index.json", promocodes: promocodes)
+  end
 end
