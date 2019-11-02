@@ -1,6 +1,17 @@
 # PromoMojo
 PromoMojo handles your Promos for you, focus on the fun!
 
+# Features
+
+- [x] Generation of new promo codes for events
+- [x] The promo code is worth a specific amount of ride
+- [x] The promo code can expire
+- [x] Can be deactivated
+- [ ] Return active promo codes
+- [x] Return all promo codes
+- [x] The promo code radius should be configurable
+- [ ] Redeeming promocodes by providing the origin, destination and code 
+
 # Starting
 
 To start your Phoenix server:
