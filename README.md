@@ -12,11 +12,156 @@ PromoMojo handles your Promos for you, focus on the fun!
 - [x] The promo code radius should be configurable
 - [ ] Redeeming promocodes by providing the origin, destination and code 
 
+## Accessing the Features
+
+### Generate a New Promocode
+
+Endpoint: `http://localhost:4000/api/promocodes`
+
+HTTP Method: **POST**
+
+Request Payload:
+```
+{
+	"promocode": {
+		"code": "MyC0DE4",
+		"expiry": "2019-12-18 06:08:59.876000Z",
+		"is_active": "true",
+		"location_latitude": 1.29,
+		"location_longitude": 36.82,
+		"radius": 12.0,
+		"radius_unit": "kilometers",
+		"value": 500
+		}
+}
+```
+
+Sample Response:
+```
+{
+  "data": {
+    "code": "MyC0DE4",
+    "expiry": "2019-12-18T06:08:59",
+    "id": "7c7575e2-140d-4d63-9c66-56618727dba8",
+    "is_active": true,
+    "location_latitude": 1.29,
+    "location_longitude": 36.82,
+    "radius": 12.0,
+    "radius_unit": "kilometers",
+    "value": 500
+  }
+}
+```
+
+### Deactivate a Promocode
+
+Endpoint: `http://localhost:4000/api/promocodes/<promocode_id>`
+
+HTTP Method: **POST**
+
+Request Payload:
+```
+{
+	"promocode": {
+		"is_active": "false"
+	}
+}
+```
+
+Sample Response:
+```
+{
+  "data": {
+    "code": "MyC0DE4",
+    "expiry": "2019-12-18T06:08:59",
+    "id": "7c7575e2-140d-4d63-9c66-56618727dba8",
+    "is_active": false,
+    "location_latitude": 1.29,
+    "location_longitude": 36.82,
+    "radius": 12.0,
+    "radius_unit": "kilometers",
+    "value": 500
+  }
+}
+```
+
+
+### Fetch All Promocodes
+
+Endpoint: `http://localhost:4000/api/promocodes`
+
+HTTP Method: **GET**
+
+Sample response:
+```
+{
+  "data": [
+    {
+      "code": "MyC0DE",
+      "expiry": "2019-12-18T06:08:59",
+      "id": "9788b2d4-ff1d-4635-88b0-2dd463203423",
+      "is_active": true,
+      "location_latitude": 1.29,
+      "location_longitude": 36.82,
+      "radius": 12.0,
+      "radius_unit": "kilometers",
+      "value": 500
+    },
+    ...more codes
+  ]
+}
+```
+
+### Fectch Active Promocodes
+
+Endpoint: `http://localhost:4000/api/promocodes/active`
+
+HTTP Method: **GET**
+
+Sample response:
+```
+{
+  "data": [
+    {
+      "code": "MyC0DE",
+      "expiry": "2019-12-18T06:08:59",
+      "id": "9788b2d4-ff1d-4635-88b0-2dd463203423",
+      "is_active": true,
+      "location_latitude": 1.29,
+      "location_longitude": 36.82,
+      "radius": 12.0,
+      "radius_unit": "kilometers",
+      "value": 500
+    },
+    ... more active codes
+  ]
+}
+```
+
+### Redeeming a Promocode
+
+Endpoint: `http://localhost:4000/api/redeem`
+
+HTTP Method: **POST**
+
+Request Payload:
+```
+```
+
+Success response:
+```
+```
+
+Error Response:
+```
+```
+
 # NB
 
-- API currently has no auth implemented, meaning anyone can create, and manage promocodes
+> API currently has no auth implemented, meaning anyone can create, and manage promocodes without having
+to log in.
 
-# Starting
+# Starting the server
 
 To start your Phoenix server:
 
@@ -27,9 +172,6 @@ To start your Phoenix server:
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-## Active Promocodes
-To fetch all active promocodes navigate to http://localhost:4000/api/promocodes/active
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
