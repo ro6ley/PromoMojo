@@ -7,7 +7,10 @@ defmodule PromoMojoWeb.Router do
 
   scope "/api", PromoMojoWeb do
     pipe_through :api
+    # fetch all active promocodes
+    get "/promocodes/active", PromocodeController, :active
 
-    resources "/promocodes", PromocodeController, except: [:new, :edit]
+    resources "/promocodes", PromocodeController, except: [:delete]
+
   end
 end
