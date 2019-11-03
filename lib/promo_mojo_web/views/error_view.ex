@@ -11,8 +11,4 @@ defmodule PromoMojoWeb.ErrorView do
     %{errors: %{detail: "Promocode not found."}, code: 404}
   end
 
-  def render("404.json", _assigns) do
-    %{errors: %{detail: "Promocode not found."}, code: 404}
-  end
-
 end
