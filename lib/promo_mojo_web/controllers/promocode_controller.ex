@@ -4,7 +4,6 @@ defmodule PromoMojoWeb.PromocodeController do
   alias PromoMojo.PromoCodes
   alias PromoMojo.PromoCodes.Promocode
 
-  @gmaps_api_key "AIzaSyA_u-LRpaLlQSPaJKL1NnPnGpMIYHRV94Q"
   @gmaps_base_url "https://maps.googleapis.com/maps/api/directions/json"
 
   action_fallback PromoMojoWeb.FallbackController
@@ -97,6 +96,7 @@ defmodule PromoMojoWeb.PromocodeController do
   end
 
   defp gmaps_api_url(coordinates) do
-    "#{@gmaps_base_url}?mode=driving&origin=" <> coordinates.origin <> "&destination=" <> coordinates.destination <> "&key=#{@gmaps_api_key}"
+    api_key = Application.get_env(:promo_mojo, PromoMojoWeb.Endpoint)[:google_api_key]
+    "#{@gmaps_base_url}?mode=driving&origin=" <> coordinates.origin <> "&destination=" <> coordinates.destination <> "&key=#{api_key}"
   end
 end
