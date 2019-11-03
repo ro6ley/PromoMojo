@@ -1,9 +1,16 @@
 use Mix.Config
 
+google_api_key =
+  System.get_env("GOOGLE_API_KEY") ||
+  raise """
+  environment variable GOOGLE_API_KEY is missing.
+  For example: verysecretandlongkey
+  """
+
 # Configure your database
 config :promo_mojo, PromoMojo.Repo,
-  username: "robley",
-  password: "password",
+  username: "postgres",
+  password: "postgres",
   database: "promo_mojo_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -20,7 +27,8 @@ config :promo_mojo, PromoMojoWeb.Endpoint,
   debug_errors: false,
   code_reloader: true,
   check_origin: false,
-  watchers: []
+  watchers: [],
+  google_api_key: google_api_key
 
 # ## SSL Support
 #
