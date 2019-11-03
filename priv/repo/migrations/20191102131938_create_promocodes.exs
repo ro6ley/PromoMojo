@@ -10,8 +10,7 @@ defmodule PromoMojo.Repo.Migrations.CreatePromocodes do
       add :radius_unit, :string
       add :is_active, :boolean, default: false, null: false
       add :expiry, :naive_datetime
-      add :location_latitude, :float
-      add :location_longitude, :float
+      add :location, :string
 
       timestamps()
     end
