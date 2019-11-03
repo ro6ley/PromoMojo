@@ -9,8 +9,10 @@ defmodule PromoMojoWeb.Router do
     pipe_through :api
     # fetch all active promocodes
     get "/promocodes/active", PromocodeController, :active
+    # redeem a promocode
+    post "/promocodes/redeem", PromocodeController, :redeem
 
-    resources "/promocodes", PromocodeController, except: [:delete]
+    resources "/promocodes", PromocodeController
 
   end
 end
