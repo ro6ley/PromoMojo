@@ -8,8 +8,7 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
     code: "some code",
     expiry: ~N[2010-04-17 14:00:00],
     is_active: true,
-    location_latitude: 120.5,
-    location_longitude: 120.5,
+    location: "120.5",
     radius: 120.5,
     radius_unit: "some radius_unit",
     value: 42
@@ -18,13 +17,12 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
     code: "some updated code",
     expiry: ~N[2011-05-18 15:01:01],
     is_active: false,
-    location_latitude: 456.7,
-    location_longitude: 456.7,
+    location: "456.7",
     radius: 456.7,
     radius_unit: "some updated radius_unit",
     value: 43
   }
-  @invalid_attrs %{code: nil, expiry: nil, is_active: nil, location_latitude: nil, location_longitude: nil, radius: nil, radius_unit: nil, value: nil}
+  @invalid_attrs %{code: nil, expiry: nil, is_active: nil, location: nil, radius: nil, radius_unit: nil, value: nil}
 
   def fixture(:promocode) do
     {:ok, promocode} = PromoCodes.create_promocode(@create_attrs)
@@ -54,8 +52,7 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
                "code" => "some code",
                "expiry" => "2010-04-17T14:00:00",
                "is_active" => true,
-               "location_latitude" => 120.5,
-               "location_longitude" => 120.5,
+               "location" => "120.5",
                "radius" => 120.5,
                "radius_unit" => "some radius_unit",
                "value" => 42
@@ -82,8 +79,7 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
                "code" => "some updated code",
                "expiry" => "2011-05-18T15:01:01",
                "is_active" => false,
-               "location_latitude" => 456.7,
-               "location_longitude" => 456.7,
+               "location" => "456.7",
                "radius" => 456.7,
                "radius_unit" => "some updated radius_unit",
                "value" => 43
@@ -108,6 +104,14 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
       end
     end
   end
+
+  # test for valid promo, valid location
+
+  # test for valid promo, invalid location
+
+  # test for inactive promo, valid location
+
+  # test for inactive promo, invalid location
 
   defp create_promocode(_) do
     promocode = fixture(:promocode)

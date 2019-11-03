@@ -6,9 +6,9 @@ defmodule PromoMojo.PromoCodesTest do
   describe "promocodes" do
     alias PromoMojo.PromoCodes.Promocode
 
-    @valid_attrs %{code: "some code", expiry: ~N[2010-04-17 14:00:00], is_active: true, location_latitude: 120.5, location_longitude: 120.5, radius: 120.5, radius_unit: "some radius_unit", value: 42}
-    @update_attrs %{code: "some updated code", expiry: ~N[2011-05-18 15:01:01], is_active: false, location_latitude: 456.7, location_longitude: 456.7, radius: 456.7, radius_unit: "some updated radius_unit", value: 43}
-    @invalid_attrs %{code: nil, expiry: nil, is_active: nil, location_latitude: nil, location_longitude: nil, radius: nil, radius_unit: nil, value: nil}
+    @valid_attrs %{code: "some code", expiry: ~N[2010-04-17 14:00:00], is_active: true, location: "120.5", radius: 120.5, radius_unit: "some radius_unit", value: 42}
+    @update_attrs %{code: "some updated code", expiry: ~N[2011-05-18 15:01:01], is_active: false, location: "456.7", radius: 456.7, radius_unit: "some updated radius_unit", value: 43}
+    @invalid_attrs %{code: nil, expiry: nil, is_active: nil, location: nil, radius: nil, radius_unit: nil, value: nil}
 
     def promocode_fixture(attrs \\ %{}) do
       {:ok, promocode} =
@@ -34,8 +34,7 @@ defmodule PromoMojo.PromoCodesTest do
       assert promocode.code == "some code"
       assert promocode.expiry == ~N[2010-04-17 14:00:00]
       assert promocode.is_active == true
-      assert promocode.location_latitude == 120.5
-      assert promocode.location_longitude == 120.5
+      assert promocode.location == "120.5"
       assert promocode.radius == 120.5
       assert promocode.radius_unit == "some radius_unit"
       assert promocode.value == 42
@@ -51,8 +50,7 @@ defmodule PromoMojo.PromoCodesTest do
       assert promocode.code == "some updated code"
       assert promocode.expiry == ~N[2011-05-18 15:01:01]
       assert promocode.is_active == false
-      assert promocode.location_latitude == 456.7
-      assert promocode.location_longitude == 456.7
+      assert promocode.location == "456.7"
       assert promocode.radius == 456.7
       assert promocode.radius_unit == "some updated radius_unit"
       assert promocode.value == 43
