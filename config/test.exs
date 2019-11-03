@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :promo_mojo, PromoMojo.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "robley",
+  password: "password",
   database: "promo_mojo_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
