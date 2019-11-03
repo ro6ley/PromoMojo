@@ -52,6 +52,22 @@ defmodule PromoMojo.PromoCodes do
   def get_promocode!(id), do: Repo.get!(Promocode, id)
 
   @doc """
+  Gets a single promocode by using it's code.
+
+  Raises `Ecto.NoResultsError` if the Promocode does not exist.
+
+  ## Examples
+
+      iex> get_promocode!("MYC0DE1")
+      %Promocode{}
+
+      iex> get_promocode!(MYC0DE1)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_promocode_by_code!(code), do: Repo.get_by!(Promocode, code: code)
+
+  @doc """
   Creates a promocode.
 
   ## Examples
