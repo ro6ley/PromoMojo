@@ -8,8 +8,7 @@ defmodule PromoMojo.PromoCodes.Promocode do
     field :code, :string
     field :expiry, :naive_datetime
     field :is_active, :boolean, default: false
-    field :location_latitude, :float
-    field :location_longitude, :float
+    field :location, :string
     field :radius, :float
     field :radius_unit, :string
     field :value, :integer
@@ -20,8 +19,8 @@ defmodule PromoMojo.PromoCodes.Promocode do
   @doc false
   def changeset(promocode, attrs) do
     promocode
-    |> cast(attrs, [:code, :value, :radius, :radius_unit, :is_active, :expiry, :location_latitude, :location_longitude])
-    |> validate_required([:code, :value, :radius, :radius_unit, :is_active, :expiry, :location_latitude, :location_longitude])
+    |> cast(attrs, [:code, :value, :radius, :radius_unit, :is_active, :expiry, :location])
+    |> validate_required([:code, :value, :radius, :radius_unit, :is_active, :expiry, :location])
     |> unique_constraint(:code)
   end
 end
