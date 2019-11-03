@@ -10,7 +10,7 @@ PromoMojo handles your Promos for you, focus on the fun!
 - [x] Return active promo codes
 - [x] Return all promo codes
 - [x] The promo code radius should be configurable
-- [ ] Redeeming promocodes by providing the origin, destination and code 
+- [x] Redeeming promocodes by providing the origin, destination and code 
 
 ## Accessing the Features
 
