@@ -7,12 +7,16 @@ google_api_key =
   For example: verysecretandlongkey
   """
 
+database_url =
+  System.get_env("DATABASE_URL") ||
+    raise """
+    environment variable DATABASE_URL is missing.
+    For example: ecto://USER:PASS@HOST/DATABASE
+    """
+
 # Configure your database
 config :promo_mojo, PromoMojo.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "promo_mojo_dev",
-  hostname: "localhost",
+  url: database_url,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
