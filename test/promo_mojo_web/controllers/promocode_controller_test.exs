@@ -24,6 +24,26 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
   }
   @invalid_attrs %{code: nil, expiry: nil, is_active: nil, location: nil, radius: nil, radius_unit: nil, value: nil}
 
+  @kca_promocode %{
+    code: "KCA",
+    expiry: ~N[2010-04-17 14:00:00],
+    is_active: true,
+    location: "KCA+University",
+    radius: 12.5,
+    radius_unit: "kilometers",
+    value: 42
+  }
+
+  @trm_promocode %{
+    code: "TRM",
+    expiry: ~N[2010-04-17 14:00:00],
+    is_active: false,
+    location: "TRM+-+Thika+Road+Mall",
+    radius: 12.5,
+    radius_unit: "kilometers",
+    value: 42
+  }
+
   def fixture(:promocode) do
     {:ok, promocode} = PromoCodes.create_promocode(@create_attrs)
     promocode
@@ -105,16 +125,77 @@ defmodule PromoMojoWeb.PromocodeControllerTest do
     end
   end
 
-  # test for valid promo, valid location
+  describe "active promocodes" do
+    setup [:create_test_promocodes]
 
-  # test for valid promo, invalid location
+    test "returns active promocodes", %{conn: conn} do
+      conn = get(conn, Routes.promocode_path(conn, :active))
+      assert [%{"code" => "KCA"}] = json_response(conn, 200)["data"]
+    end
+  end
 
-  # test for inactive promo, valid location
+  describe "promocode redemption" do
+    setup [:create_test_promocodes]
 
-  # test for inactive promo, invalid location
+    test "active promocode and location returns polyline and promocode data", %{conn: conn} do
+      redemption_data = %{data: %{origin: "KCA+University", destination: "TRM+-+Thika+Road+Mall", promocode: "KCA" }}
+      conn = post(conn, Routes.promocode_path(conn, :redeem, redemption_data), redemption_data: redemption_data)
+
+      assert %{"code" => 200} = json_response(conn, 200)
+
+    end
+
+    test "active promocode invalid location returns error 400", %{conn: conn} do
+      redemption_data = %{data: %{origin: "Safari+Park+Hotel", destination: "TRM+-+Thika+Road+Mall", promocode: "KCA" }}
+      conn = post(conn, Routes.promocode_path(conn, :redeem, redemption_data), redemption_data: redemption_data)
+
+      assert %{
+        "code" => 400,
+        "data" => %{
+          "error" => "Invalid location"
+        }
+      } = json_response(conn, 200)
+    end
+
+    test "inactive promocode, valid location returns error 400", %{conn: conn} do
+      redemption_data = %{data: %{origin: "KCA+University", destination: "TRM+-+Thika+Road+Mall", promocode: "TRM" }}
+      conn = post(conn, Routes.promocode_path(conn, :redeem, redemption_data), redemption_data: redemption_data)
+
+      assert %{
+        "code" => 400,
+        "data" => %{
+          "error" => "Promocode is Inactive"
+        }
+      } = json_response(conn, 200)
+    end
+
+    test "invalid promocode returns error" do
+      redemption_data = %{data: %{origin: "KCA+University", destination: "TRM+-+Thika+Road+Mall", promocode: "ALCHEMIST" }}
+      conn = post(conn, Routes.promocode_path(conn, :redeem, redemption_data), redemption_data: redemption_data)
+
+      assert %{
+        "code" => 404,
+        "data" => %{
+          "error" => "Promocode not found."
+        }
+      } = json_response(conn, 404)
+    end
+  end
+
 
   defp create_promocode(_) do
     promocode = fixture(:promocode)
     {:ok, promocode: promocode}
+  end
+
+  defp create_test_promocodes(_) do
+    test_promocodes = %{}
+    {:ok, kca_promocode} = PromoCodes.create_promocode(@kca_promocode)
+    test_promocodes = Map.put(test_promocodes, :kca, kca_promocode)
+
+    {:ok, trm_promocode} = PromoCodes.create_promocode(@trm_promocode)
+    test_promocodes = Map.put(test_promocodes, :trm, trm_promocode)
+
+    test_promocodes
   end
 end
