@@ -8,6 +8,12 @@ In the `run.sh` file:
 - Modify `DATABASE_URL` to match your set up.
 - Obtain a Google API Key with `Directions API` Enabled add it to `GOOGLE_API_KEY`
 
+# To run the tests
+
+Run the following command:
+```
+$ ./run.sh test
+```
 
 # Starting the server
 
